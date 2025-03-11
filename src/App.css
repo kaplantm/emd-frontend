@@ -1,42 +1,7 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.app {
+  background-image: url("https://cdn.prod.website-files.com/647f1f0eace38f44133df49d/64c23c29dc88b80944309fb7_EngagedMD_Female%20Phys%20large-p-1080.png"),
+    url("https://cdn.prod.website-files.com/647f1f0eace38f44133df49d/64a272f8410d9ffc9676c8f3_EngagedMD_Female%20Nurse-2.png");
+  background-position: bottom right, bottom left;
+  background-repeat: no-repeat;
+  background-size: 50%;
 }
