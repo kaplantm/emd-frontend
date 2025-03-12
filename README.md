@@ -74,3 +74,8 @@ This will start both the front end and backend.
 
 Note that the [index of the api](http://18.217.74.192/) should return 200 and show Hello World! when the backend is running.
 They live deploys are very temporary.
+
+### Video Demo
+https://github.com/user-attachments/assets/7f467cfa-8df8-4ae9-84ec-90865679a1e7
+
+
