@@ -11,7 +11,7 @@ RUN npm i -g serve
 
 COPY . .
 
-ARG MY_ARG=http://18.217.74.192
+ARG VITE_API_BASE_URL=http://18.217.74.192
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
 RUN npm run build
