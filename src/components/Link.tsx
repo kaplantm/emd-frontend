@@ -1,7 +1,6 @@
 import { AnchorHTMLAttributes, ReactNode } from "react";
 
-interface LinkProps
-  extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "className"> {
+interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: ReactNode;
   href: string;
   className?: string;

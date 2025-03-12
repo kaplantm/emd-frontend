@@ -1,9 +1,19 @@
 import { useCallback, useMemo } from "react";
 import { API_CONSTANTS } from "../constants";
+import { ApiError } from "../types";
 import useApiCall from "../useApiCall";
 import { ValidateCreditCardResponse } from "./types";
 
-const useValidateCreditCard = (cardNumber: string) => {
+export interface useValidateCreditCardResponse {
+  isLoading: boolean;
+  error: ApiError | undefined;
+  response: ValidateCreditCardResponse | undefined;
+  validateCard: () => void;
+}
+
+const useValidateCreditCard = (
+  cardNumber: string
+): useValidateCreditCardResponse => {
   const fetchRequestArgs: RequestInit = useMemo(
     () => ({
       method: "POST",

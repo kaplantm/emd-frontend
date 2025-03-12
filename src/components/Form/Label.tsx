@@ -1,7 +1,6 @@
 import { LabelHTMLAttributes, ReactNode } from "react";
 
-interface LabelProps
-  extends Omit<LabelHTMLAttributes<HTMLLabelElement>, "className"> {
+interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   children: ReactNode;
   required?: boolean;
   className?: string;

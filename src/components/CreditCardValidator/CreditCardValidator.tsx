@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useValidateCreditCard from "../../api_client/credit-card/useValidateCreditCard";
-import { useToast } from "../../context/Toast/ToastContext";
+import { useToastContext } from "../../context/Toast/ToastContext";
 import Button from "../Button";
 import Card from "../Card/Card";
 import CardContent from "../Card/CardContent";
@@ -16,15 +16,14 @@ const CreditCardValidator: React.FC = () => {
   const { response, isLoading, error, validateCard } =
     useValidateCreditCard(cardNumber);
 
-  const { addToast } = useToast();
-
+  const { addToast } = useToastContext();
   useEffect(() => {
     const isValid = response?.isValid;
     if (isValid !== undefined) {
       addToast({
         message: isValid
-          ? "Credit Card is Valid"
-          : error?.message || "Credit Card is Invalid",
+          ? "Credit card number is valid."
+          : error?.message || "Credit card number is invalid.",
         type: isValid ? "success" : "error",
       });
     }
@@ -41,13 +40,14 @@ const CreditCardValidator: React.FC = () => {
     e.preventDefault();
     validateCard();
   };
-
   return (
     <div className="flex flex-1 items-start sm:items-center justify-center min-h-screen p-8 md:p-15">
       <div className="w-full max-w-md px-4">
         <Card className="overflow-visible">
           <CardHeader>
-            <CardTitle>Credit Card Validator</CardTitle>
+            <CardTitle id="validator-form-title">
+              Credit Card Validator
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">

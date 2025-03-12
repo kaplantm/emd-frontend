@@ -17,4 +17,4 @@ const defaultToastContextValue: ToastContext = {
 
 export const ToastContext = createContext(defaultToastContextValue);
 
-export const useToast = () => useContext(ToastContext);
+export const useToastContext = () => useContext(ToastContext);
