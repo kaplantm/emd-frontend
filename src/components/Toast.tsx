@@ -31,7 +31,7 @@ export default function Toast({
 
   return (
     <div
-      className={`p-4 text-center rounded-full shadow-lg w-full ${toastTypes[type]} animate-toass`}
+      className={`p-4 text-center rounded-full shadow-lg w-full ${toastTypes[type]} animate-toast`}
     >
       <strong>{message}</strong>
     </div>
