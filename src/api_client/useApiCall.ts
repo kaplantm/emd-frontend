@@ -4,14 +4,12 @@ import { ApiError } from "./types";
 
 function useApiCall<T>(url: string, requestInit: RequestInit) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<{
-    message: string;
-    status: number;
-  } | null>(null);
-  const [response, setResponse] = useState<T | null>(null);
+  const [error, setError] = useState<ApiError | undefined>(undefined);
+  const [response, setResponse] = useState<T | undefined>(undefined);
 
   const doApiCall = useCallback(async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(`${getAPIURL(url)}`, requestInit);
 
       const data: T | ApiError = await response.json();
@@ -19,19 +17,19 @@ function useApiCall<T>(url: string, requestInit: RequestInit) {
       if (!response.ok) {
         setError({
           message: (data as ApiError).message,
-          status: (data as ApiError).statusCode || response.status,
+          statusCode: (data as ApiError).statusCode || response.status,
         });
-        setResponse(null);
+        setResponse(undefined);
       } else {
         setResponse(data as T);
-        setError(null);
+        setError(undefined);
       }
     } catch (err) {
       setError({
         message: `Api call to ${url} failed: ${err || "Unknown error"}`,
-        status: 500,
+        statusCode: 500,
       });
-      setResponse(null);
+      setResponse(undefined);
     } finally {
       setIsLoading(false);
     }

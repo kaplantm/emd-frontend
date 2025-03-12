@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useValidateCreditCard from "../../api_client/credit-card/useValidateCreditCard";
+import { useToast } from "../../context/Toast/ToastContext";
 import Button from "../Button";
 import Card from "../Card/Card";
 import CardContent from "../Card/CardContent";
@@ -7,16 +8,27 @@ import CardHeader from "../Card/CardHeader";
 import CardTitle from "../Card/CardTitle";
 import Label from "../Form/Label";
 import TextInput from "../Form/TextInput";
-import CheckIcon from "../svg/CheckIcon";
 import CreditCardIcon from "../svg/CreditCardIcon";
-import ErrorIcon from "../svg/ErrorIcon";
 import CreditCardValidatorInfo from "./CreditCardValidatorInfo";
 
 const CreditCardValidator: React.FC = () => {
   const [cardNumber, setCardNumber] = useState<string>("");
   const { response, isLoading, error, validateCard } =
     useValidateCreditCard(cardNumber);
-  const isValid = response?.isValid;
+
+  const { addToast } = useToast();
+
+  useEffect(() => {
+    const isValid = response?.isValid;
+    if (isValid !== undefined) {
+      addToast({
+        message: isValid
+          ? "Credit Card is Valid"
+          : error?.message || "Credit Card is Invalid",
+        type: isValid ? "success" : "error",
+      });
+    }
+  }, [response, addToast, error]);
 
   // TODO: card number UI formatting with
   const handleCardNumberChange = (
@@ -28,13 +40,12 @@ const CreditCardValidator: React.FC = () => {
   const handleValidateCardSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     validateCard();
-    console.log("Validating card number:", cardNumber);
   };
 
   return (
     <div className="flex flex-1 items-start sm:items-center justify-center min-h-screen p-8 md:p-15">
       <div className="w-full max-w-md px-4">
-        <Card>
+        <Card className="overflow-visible">
           <CardHeader>
             <CardTitle>Credit Card Validator</CardTitle>
           </CardHeader>
@@ -44,7 +55,6 @@ const CreditCardValidator: React.FC = () => {
                 <Label htmlFor="cardNumber" required>
                   Card Number
                 </Label>
-                {/* TODO: now error states */}
                 <div className="relative">
                   <TextInput
                     id="cardNumber"
@@ -67,26 +77,6 @@ const CreditCardValidator: React.FC = () => {
                     Validate Card
                   </Button>
                 </div>
-
-                {error && (
-                  <div className="flex items-center text-red-600 mt-2 animate-fadeIn">
-                    <ErrorIcon />
-                    <span>{error?.message}</span>
-                  </div>
-                )}
-
-                {!isLoading && !error && response !== null && (
-                  <div
-                    className={`flex items-center mt-2 ${
-                      isValid ? "text-green-600" : "text-red-600"
-                    } animate-fadeIn`}
-                  >
-                    {isValid ? <CheckIcon /> : <ErrorIcon />}
-                    <span>
-                      {isValid ? "Valid card number" : "Invalid card number"}
-                    </span>
-                  </div>
-                )}
               </form>
 
               <CreditCardValidatorInfo />

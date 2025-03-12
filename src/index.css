@@ -6,4 +6,21 @@
   --color-brand-pink: #f54fb0;
   --color-brand-deep-pink: #df3197;
   --color-brand-teal: #05c9bf;
+
+  /* custom animation fade out */
+  @keyframes toast-fade-in-out {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  --animate-toast: toast-fade-in-out 3s ease-out forwards;
 }
